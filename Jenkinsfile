@@ -32,31 +32,30 @@ pipeline {
         }
 
         stage('After Restart') {
-            steps {
-                script {
-                    if (!fileExists('done_after.flag')) {
-                        bat 'python scripts\\3after_restart.py'
-                        writeFile file: 'done_after.flag', text: 'done'
-                        echo "Created done_after.flag"
-                    } else {
-                        echo 'Skipping After Restart - already done'
-                    }
-                }
+    steps {
+        script {
+            if (!fileExists('done_after.flag')) {
+                bat 'python scripts\\3after_restart.py'
+                writeFile file: 'done_after.flag', text: 'done'
+            } else {
+                echo 'Skipping After Restart - already done'
             }
         }
+    }
+}
 
-        stage('Install Notepad++') {
-            steps {
-                script {
-                    if (!fileExists('done_install.flag')) {
-                        bat 'python scripts\\4install_notepadd.py'
-                        writeFile file: 'done_install.flag', text: 'done'
-                        echo "Created done_install.flag"
-                    } else {
-                        echo 'Skipping Install - already done'
-                    }
-                }
+stage('Install Notepad++') {
+    steps {
+        script {
+            if (!fileExists('done_install.flag')) {
+                bat 'python scripts\\4install_notepadd.py'
+                writeFile file: 'done_install.flag', text: 'done'
+            } else {
+                echo 'Skipping Install - already done'
             }
         }
+    }
+}
+
     }
 }
